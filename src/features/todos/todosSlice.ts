@@ -1,7 +1,4 @@
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AppState } from 'app/stateTypes'
-import { getVisibilityFilter } from 'features/filters/filtersSlice'
-import { VisibilityFilters } from 'features/filters/filtersType'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AddTodoPayload, UncompletedTodo, Todo, TodoState } from './todosTypes'
 
 const initialState: TodoState = [
@@ -34,25 +31,6 @@ const todosSlice = createSlice({
     },
   },
 })
-
-export const getTodos = (state: AppState) => state.todos
-
-export const getVisibleTodos = createSelector(
-  getTodos,
-  getVisibilityFilter,
-  (todos, visibilityFilter) => {
-    switch (visibilityFilter) {
-      case VisibilityFilters.SHOW_ALL:
-        return todos
-      case VisibilityFilters.SHOW_ACTIVE:
-        return todos.filter((todo) => !todo.completed)
-      case VisibilityFilters.SHOW_COMPLETED:
-        return todos.filter((todo) => todo.completed)
-      default:
-        throw new Error('Unknown filter: ' + visibilityFilter)
-    }
-  }
-)
 
 export const { addTodo, toggleTodo, deleteTodo } = todosSlice.actions
 export default todosSlice.reducer

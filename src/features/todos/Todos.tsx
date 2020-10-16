@@ -1,13 +1,14 @@
 import React, { FC, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteTodo, getVisibleTodos } from './todosSlice'
+import { getVisibleTodos } from './todosSelector'
+import { deleteTodo } from './todosSlice'
 import { Todo } from './todosTypes'
 
 export const Todos = () => {
   const todos = useSelector(getVisibleTodos)
   const dispatch = useDispatch()
 
-  const handleDelete = useCallback(
+  const onDelete = useCallback(
     (id: Todo['id']) => {
       dispatch(deleteTodo(id))
     },
@@ -20,7 +21,7 @@ export const Todos = () => {
         <TodoItemMemo
           key={todo.id}
           todo={todo}
-          onDelete={handleDelete}
+          onDelete={onDelete}
         ></TodoItemMemo>
       ))}
     </ul>

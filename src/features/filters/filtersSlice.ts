@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AppState } from 'app/stateTypes'
 import { VisibilityFilters } from './filtersType'
 
-const initialState = VisibilityFilters.SHOW_ALL as VisibilityFilters
+const initialState = VisibilityFilters.SHOW_ALL
 
 const filtersSlice = createSlice({
   name: 'filters',
@@ -13,8 +12,6 @@ const filtersSlice = createSlice({
     },
   },
 })
-
-export const getVisibilityFilter = (state: AppState) => state.visibilityFilter
 
 export const { setFilter } = filtersSlice.actions
 export default filtersSlice.reducer
