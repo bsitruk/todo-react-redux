@@ -1,8 +1,9 @@
+import { useAppDispatch } from 'app/store'
 import React, { FC } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getVisibilityFilter } from './filtersSelector'
-import { setFilter } from './filtersSlice'
-import { VisibilityFilters } from './filtersType'
+import { useSelector } from 'react-redux'
+import { getVisibilityFilter } from './selectors'
+import { setFilter } from './slice'
+import { VisibilityFilters } from './types'
 
 const TodoFilter = () => {
   return (
@@ -21,7 +22,7 @@ const FilterButton: FC<{
   children: React.ReactNode
 }> = ({ filter, children }) => {
   const currentFilter = useSelector(getVisibilityFilter)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   return (
     <button

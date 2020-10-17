@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { AppState } from 'app/rootReducer'
-import { getVisibilityFilter } from 'features/filters/filtersSelector'
-import { VisibilityFilters } from 'features/filters/filtersType'
+import { getVisibilityFilter } from 'features/filters/selectors'
+import { VisibilityFilters } from 'features/filters/types'
 
 export const getTodos = (state: AppState) => state.todos
 

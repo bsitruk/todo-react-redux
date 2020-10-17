@@ -1,12 +1,13 @@
+import { useAppDispatch } from 'app/store'
 import React, { FC, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getVisibleTodos } from './todosSelector'
-import { deleteTodo } from './todosSlice'
-import { Todo } from './todosTypes'
+import { useSelector } from 'react-redux'
+import { getVisibleTodos } from './selectors'
+import { deleteTodo } from './slice'
+import { Todo } from './types'
 
 export const Todos = () => {
   const todos = useSelector(getVisibleTodos)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const onDelete = useCallback(
     (id: Todo['id']) => {

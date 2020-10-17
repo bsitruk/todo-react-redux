@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { VisibilityFilters } from './filtersType'
+import { VisibilityFilters } from './types'
 
 const initialState = VisibilityFilters.SHOW_ALL
 

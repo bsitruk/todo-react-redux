@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AddTodoPayload, UncompletedTodo, Todo, TodoState } from './todosTypes'
+import { AppDispatch, AppThunk } from 'app/store'
+import { wait } from 'common/utils'
+import { AddTodoPayload, UncompletedTodo, Todo, TodoState } from './types'
 
 const initialState: TodoState = [
   { id: 1, title: 'My first task', completed: false },
@@ -31,6 +33,13 @@ const todosSlice = createSlice({
     },
   },
 })
+
+export const createTodo = (payload: AddTodoPayload): AppThunk => async (
+  dispatch: AppDispatch
+) => {
+  await wait(2000)
+  dispatch(addTodo(payload))
+}
 
 export const { addTodo, toggleTodo, deleteTodo } = todosSlice.actions
 export default todosSlice.reducer
