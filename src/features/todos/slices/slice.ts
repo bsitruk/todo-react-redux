@@ -4,19 +4,20 @@ import { wait } from 'common/utils'
 import { AddTodoPayload, UncompletedTodo, Todo, TodoState } from './types'
 
 const initialState: TodoState = [
-  { id: 1, title: 'My first task', completed: false },
-  { id: 2, title: 'My second task', completed: false },
+  { id: 1, text: 'My first task', completed: false },
+  { id: 2, text: 'My second task', completed: false },
 ]
 
-// let nextTodoId = 3
+let nextTodoId = 3
 
 const todosSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
     addTodo(state, action: PayloadAction<AddTodoPayload>) {
-      const { id, title } = action.payload
-      const todo: UncompletedTodo = { id, title, completed: false }
+      const id = nextTodoId++
+      const { text } = action.payload
+      const todo: UncompletedTodo = { id, text, completed: false }
       state.push(todo)
     },
     toggleTodo(state, action: PayloadAction<Todo['id']>) {
@@ -38,8 +39,8 @@ export const createTodo = (payload: AddTodoPayload): AppThunk => async (
   dispatch: AppDispatch
 ) => {
   await wait(2000)
-  dispatch(addTodo(payload))
+  dispatch(todosSlice.actions.addTodo(payload))
 }
 
-export const { addTodo, toggleTodo, deleteTodo } = todosSlice.actions
+export const { toggleTodo, deleteTodo } = todosSlice.actions
 export default todosSlice.reducer

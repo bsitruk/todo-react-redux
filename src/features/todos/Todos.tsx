@@ -1,12 +1,14 @@
 import { useAppDispatch } from 'app/store'
-import React, { FC, useCallback } from 'react'
+import TodoFilter from 'features/filters/TodoFilter'
+import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { getVisibleTodos } from './selectors'
-import { deleteTodo } from './slice'
-import { Todo } from './types'
+import { getFilteredTodos, deleteTodo, toggleTodo } from './slices'
+import type { Todo } from './slices'
+import TodoInput from './TodoInput'
+import TodoItem from './TodoItem'
 
 export const Todos = () => {
-  const todos = useSelector(getVisibleTodos)
+  const todos = useSelector(getFilteredTodos)
   const dispatch = useAppDispatch()
 
   const onDelete = useCallback(
@@ -16,29 +18,29 @@ export const Todos = () => {
     [dispatch]
   )
 
+  const onToggle = useCallback(
+    (id: Todo['id']) => {
+      dispatch(toggleTodo(id))
+    },
+    [dispatch]
+  )
+
   return (
-    <ul>
-      {todos.map((todo) => (
-        <TodoItemMemo
-          key={todo.id}
-          todo={todo}
-          onDelete={onDelete}
-        ></TodoItemMemo>
-      ))}
-    </ul>
+    <div>
+      <TodoFilter />
+
+      <ul>
+        {todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onDelete={onDelete}
+            onToggle={onToggle}
+          ></TodoItem>
+        ))}
+      </ul>
+
+      <TodoInput />
+    </div>
   )
 }
-
-const TodoItem: FC<{
-  todo: Todo
-  onDelete: (id: Todo['id']) => void
-}> = ({ todo, onDelete }) => {
-  return (
-    <li>
-      <button onClick={() => onDelete(todo.id)}>x</button>
-      {todo.title}
-    </li>
-  )
-}
-
-const TodoItemMemo = React.memo(TodoItem)

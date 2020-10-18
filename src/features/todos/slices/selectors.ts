@@ -1,7 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit'
 import { AppState } from 'app/rootReducer'
-import { getVisibilityFilter } from 'features/filters/selectors'
-import { VisibilityFilters } from 'features/filters/types'
+import {
+  getVisibilityFilter,
+  getSearchFilter,
+  VisibilityFilters,
+} from 'features/filters/slices'
 
 export const getTodos = (state: AppState) => state.todos
 
@@ -19,5 +22,16 @@ export const getVisibleTodos = createSelector(
       default:
         throw new Error('Unknown filter: ' + visibilityFilter)
     }
+  }
+)
+
+export const getFilteredTodos = createSelector(
+  getVisibleTodos,
+  getSearchFilter,
+  (todos, searchFilter) => {
+    if (!searchFilter) return todos
+
+    const filter = searchFilter.toUpperCase()
+    return todos.filter((todo) => todo.text.toUpperCase().includes(filter))
   }
 )

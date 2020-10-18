@@ -1,6 +1,6 @@
 export type Todo = {
   id: number
-  title: string
+  text: string
   completed: boolean
 }
 
@@ -13,6 +13,5 @@ export type UncompletedTodo = Todo & {
 export type TodoState = Todo[]
 
 export type AddTodoPayload = {
-  id: number
-  title: string
+  text: string
 }
