@@ -1,7 +1,7 @@
 import React from 'react'
 import { Todos } from '../features/todos/Todos'
 
-function App() {
+function App () {
   return (
     <div>
       <Todos></Todos>
