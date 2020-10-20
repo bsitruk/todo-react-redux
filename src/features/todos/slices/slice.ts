@@ -14,19 +14,19 @@ const todosSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    addTodo (state, action: PayloadAction<AddTodoPayload>) {
+    addTodo(state, action: PayloadAction<AddTodoPayload>) {
       const id = nextTodoId++
       const { text } = action.payload
       const todo: UncompletedTodo = { id, text, completed: false }
       state.push(todo)
     },
-    toggleTodo (state, action: PayloadAction<Todo['id']>) {
+    toggleTodo(state, action: PayloadAction<Todo['id']>) {
       const todo = state.find((todo) => todo.id === action.payload)
       if (todo) {
         todo.completed = !todo.completed
       }
     },
-    deleteTodo (state, action: PayloadAction<Todo['id']>) {
+    deleteTodo(state, action: PayloadAction<Todo['id']>) {
       const index = state.findIndex((todo) => todo.id === action.payload)
       if (index !== -1) {
         state.splice(index, 1)
